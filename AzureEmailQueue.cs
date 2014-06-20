@@ -20,7 +20,7 @@ namespace Escc.Services.Azure
         private static CloudQueue CreateQueue()
         {
             var config = new AzureServicesConfiguration();
-            var storageAccount = config.StorageAccount;
+            var storageAccount = config.EmailQueueStorageAccount;
             var queueClient = storageAccount.CreateCloudQueueClient();
 
             var queue = queueClient.GetQueueReference("email");

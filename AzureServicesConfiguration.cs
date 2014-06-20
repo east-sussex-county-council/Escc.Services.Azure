@@ -1,24 +1,33 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.Configuration;
 using Microsoft.WindowsAzure.Storage;
 
 namespace Escc.Services.Azure
 {
+    /// <summary>
+    /// Configuration settings for Azure services
+    /// </summary>
     public class AzureServicesConfiguration
     {
-        public CloudStorageAccount StorageAccount
+        /// <summary>
+        /// Gets the storage account used for queues, blobs and tables related to queuing emails.
+        /// </summary>
+        /// <value>
+        /// The storage account.
+        /// </value>
+        /// <exception cref="System.Configuration.ConfigurationErrorsException">Escc.Services.Azure.EmailQueue connection string for Azure storage not found in app.config</exception>
+        public CloudStorageAccount EmailQueueStorageAccount
         {
             get
             {
-                var config = ConfigurationManager.GetSection("Escc.Services.Azure/EmailQueue") as NameValueCollection;
-                if (config == null || String.IsNullOrEmpty(config["StorageAccount"]))
+                if (ConfigurationManager.ConnectionStrings["Escc.Services.Azure.EmailQueue"] == null
+                     || String.IsNullOrEmpty(ConfigurationManager.ConnectionStrings["Escc.Services.Azure.EmailQueue"].ConnectionString))
                 {
                     throw new ConfigurationErrorsException(
-                          "StorageAccount configuration setting not found in Escc.Services.Azure/EmailQueue");
+                          "Escc.Services.Azure.EmailQueue connection string for Azure storage not found in app.config");
                 }
 
-                return CloudStorageAccount.Parse(config["StorageAccount"]);
+                return CloudStorageAccount.Parse(ConfigurationManager.ConnectionStrings["Escc.Services.Azure.EmailQueue"].ConnectionString);
             }
         }
     }
