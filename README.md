@@ -3,6 +3,8 @@ Escc.Services.Azure
 
 Windows Azure implementations of services defined in the Escc.Services project. 
 
+A [NuBuild](https://github.com/bspell1/NuBuild) project is used to create the NuGet package.
+
 Email
 -----
 
