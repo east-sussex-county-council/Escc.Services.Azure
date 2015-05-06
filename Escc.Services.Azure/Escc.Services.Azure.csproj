@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="Escc.Services, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Escc.Services.2.0.0\lib\Escc.Services.dll</HintPath>
+      <HintPath>..\packages\Escc.Services.3.0.0\lib\Escc.Services.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Data.Edm, Version=5.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
