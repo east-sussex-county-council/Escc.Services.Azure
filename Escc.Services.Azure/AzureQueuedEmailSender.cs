@@ -3,6 +3,7 @@ using System.Net.Mail;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading.Tasks;
 using Microsoft.WindowsAzure.Storage.Queue;
+using Modules.JsonNet;
 
 namespace Escc.Services.Azure
 {
@@ -24,7 +25,6 @@ namespace Escc.Services.Azure
         /// <summary>
         /// Adds an email to the queue.
         /// </summary>
-        /// <param name="message">The email.</param>
         public void Send(MailMessage message)
         {
             throw new NotImplementedException("AzureQueuedEmailSender only supports SendAsync");
@@ -36,11 +36,11 @@ namespace Escc.Services.Azure
         /// <param name="message">The email.</param>
         public async Task SendAsync(MailMessage message)
         {
-            var blobSerialiser = new AzureEmailToBlobSerialiser(new BinaryFormatter());
+            var blobSerialiser = new AzureEmailToBlobSerialiser(new JsonNetFormatter());
             var blobUri = blobSerialiser.Serialise(message);
-
             var queueMessage = new CloudQueueMessage(blobUri.ToString());
-            await _queue.AddMessageAsync(queueMessage);
+            
+            await _queue.AddMessageAsync(queueMessage);        
         }
     }
 }

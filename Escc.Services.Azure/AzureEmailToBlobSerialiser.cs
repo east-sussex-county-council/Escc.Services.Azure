@@ -5,6 +5,11 @@ using System.Net.Mail;
 using System.Runtime.Serialization;
 using Microsoft.WindowsAzure.Storage.Blob;
 using S22.Mail;
+using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System.Collections.Generic;
+using System.Collections.Specialized;
 
 namespace Escc.Services.Azure
 {
@@ -65,8 +70,8 @@ namespace Escc.Services.Azure
         {
             using (var s = new MemoryStream())
             {
-                _serialisationFormatter.Serialize(s, (SerializableMailMessage)email);
-                s.Seek(0, SeekOrigin.Begin);
+                _serialisationFormatter.Serialize(s, (SerializableJsonMailMessage)email);
+                s.Position = 0;
 
                 var blob = _blobContainer.GetBlockBlobReference(Guid.NewGuid().ToString());
                 blob.UploadFromStream(s);
@@ -86,9 +91,13 @@ namespace Escc.Services.Azure
             using (var s = new MemoryStream())
             {
                 blob.DownloadToStream(s);
-                s.Seek(0, SeekOrigin.Begin);
+                s.Position = 0;
 
-                return (SerializableMailMessage)_serialisationFormatter.Deserialize(s);
+                var deserializedMessage = (SerializableJsonMailMessage)_serialisationFormatter.Deserialize(s);
+                MailMessage email = new MailMessage();
+                email = deserializedMessage;
+
+                return deserializedMessage;
             }
         }
     }

@@ -53,8 +53,13 @@
     <Reference Include="Microsoft.WindowsAzure.Storage">
       <HintPath>..\packages\WindowsAzure.Storage.4.0.1\lib\net40\Microsoft.WindowsAzure.Storage.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OrigoDb.JsonNetFormatter, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\OrigoDB.JsonNetFormatter.0.1.0\lib\net40\OrigoDb.JsonNetFormatter.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="S22.Mail">
       <HintPath>..\packages\S22.Mail.1.0.4668.31819\lib\net45\S22.Mail.dll</HintPath>
@@ -78,8 +83,10 @@
     <Compile Include="AzureQueuedEmailSender.cs" />
     <Compile Include="AzureEmailToBlobSerialiser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerializableJsonMailMessage.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

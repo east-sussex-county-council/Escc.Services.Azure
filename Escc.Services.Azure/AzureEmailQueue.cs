@@ -1,4 +1,5 @@
 ﻿using Microsoft.WindowsAzure.Storage.Queue;
+using System.Threading.Tasks;
 
 namespace Escc.Services.Azure
 {
@@ -22,9 +23,11 @@ namespace Escc.Services.Azure
             var config = new AzureServicesConfiguration();
             var storageAccount = config.EmailQueueStorageAccount;
             var queueClient = storageAccount.CreateCloudQueueClient();
-
+            
             var queue = queueClient.GetQueueReference("email");
+
             queue.CreateIfNotExistsAsync().Wait();
+
             return queue;
         }
 
